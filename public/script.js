@@ -22,10 +22,10 @@ let updateTimer;
 
 const music_list = [
     {
-        img: 'images/sewerslvt.jpg',
-        name: 'Pretty Cvnt',
-        artist: 'Sewerslvt',
-        music: 'music/PrettyCvnt.mp3'
+        img: 'images/atomic.jpeg',
+        name: 'Komarovo',
+        artist: 'DVRST, Игорь Скляр',
+        music: 'music/komarovo-dvrst.mp3'
     },
     {
         img: 'images/trvnsporter.jpg',
@@ -38,6 +38,12 @@ const music_list = [
         name: 'Я никому не верю',
         artist: 'Би-2',
         music: 'music/YaNikomuNeVeryu.mp3'
+    },
+    {
+        img: 'images/sewerslvt.jpg',
+        name: 'Pretty Cvnt',
+        artist: 'Sewerslvt',
+        music: 'music/PrettyCvnt.mp3'
     },
 ];
 
@@ -58,7 +64,7 @@ function loadTrack(track_index) {
     updateTimer = setInterval(setUpdate, 1000);
 
     curr_track.addEventListener('ended', nextTrack);
-    random_bg_color();
+    // random_bg_color();
 }
 
 function random_bg_color() {
@@ -76,7 +82,7 @@ function random_bg_color() {
 
     let Color1 = populate('#');
     let Color2 = populate('#');
-    var angle = 'to right';
+    let angle = 'to right';
 
     document.body.style.background = 'linear-gradient(' + angle + ',' + Color1 + ', ' + Color2 + ")";
 }
@@ -114,15 +120,26 @@ function playTrack() {
     curr_track.play();
     isPlaying = true;
     track_art.classList.add('rotate');
-    wave.classList.add('loader');
+    track_art.style.animationPlayState = 'running';
+    let children = wave.children;
+    for (let i = 0; i < children.length; i++) {
+        let tableChild = children[i];
+        tableChild.style.animationPlayState = 'running';
+    }
     playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-5x"></i>';
 }
 
 function pauseTrack() {
     curr_track.pause();
     isPlaying = false;
-    track_art.classList.remove('rotate');
-    wave.classList.remove('loader');
+    track_art.style.animationPlayState = 'paused';
+    let children = wave.children;
+    for (let i = 0; i < children.length; i++) {
+        let tableChild = children[i];
+        tableChild.style.animationPlayState = 'paused';
+    }
+    // track_art.classList.remove('rotate');
+    // wave.classList.remove('loader');
     playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-5x"></i>';
 }
 
